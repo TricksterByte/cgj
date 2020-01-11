@@ -198,6 +198,7 @@ void createWaterShader() {
 	program->addShader(GL_VERTEX_SHADER, "../../../project/cgj/cgj/assets/water-vs.glsl");
 	program->addShader(GL_FRAGMENT_SHADER, "../../../project/cgj/cgj/assets/water-fs.glsl");
 	program->addAttribute("inVertex", Mesh::VERTEX);
+	program->addAttribute("inTexcoord", Mesh::TEXCOORD);
 	program->addUniform("ModelMatrix");
 	program->addUniformBlock("Camera", UBO_BP);
 	program->addUniform("Reflection");
@@ -359,7 +360,7 @@ void createSceneGraph() {
 		MatrixFactory::createPerspectiveProjectionMatrix(degreesToRadians(60), 640.0f / 480.0f, 1, 100));
 //		MatrixFactory::createOrtographicProjectionMatrix(-2, 2, -2, 2, 1, 100));
 
-	graph->getCamera()->changeTranslation(vec3(0.f, 1.f, 0.f));
+	graph->getCamera()->changeTranslation(vec3(0, -2.f, 0));
 
 	SceneManager::getInstance()->add("scenegraph", graph);
 
@@ -373,7 +374,7 @@ void createSceneGraph() {
 	skybox->setShaderProgram(ShaderManager::getInstance()->get("skybox"));
 	skybox->setCallback(new BackMode());
 	skybox->addTextureInfo(tinfo0);
-	skybox->scale(vec3(8.0f, 8.0f, 8.0f));
+	skybox->scale(vec3(32.0f, 32.0f, 32.0f));
 
 	TextureInfo* tinfo1 = new TextureInfo(GL_TEXTURE2, 2, "WaterDuDv", TextureManager::getInstance()->get("waterDuDv"), nullptr);
 
@@ -385,7 +386,7 @@ void createSceneGraph() {
 	water->setModelMatrix(
 		AXIS_Y * -0.1f,
 		qtrn(),
-		vec3(2.0f, 2.0f, 2.0f)
+		vec3(8.0f, 8.0f, 8.0f)
 	);
 	root->addNode(water);
 
@@ -427,37 +428,48 @@ void drawSceneGraph() {
 
 	Camera* camera;
 	camera = graph->getCamera();
+	camera->bind();
 
 	float distance = 2.f * (camera->translation.at(1, 3) + 0.1f);
 
 	WaterFramebuffers* fbos = water->getFbos();
 	fbos->bindReflectionFramebuffer();
 	{
-		glEnable(GL_CULL_FACE);
-
-		camera->changeRotation(degreesToRadians(-180.f), 0.f, 0.f);
 		camera->changeTranslation(vec3(0, -distance, 0));
+		camera->changeRotation(degreesToRadians(180.f), 0.f, 0.f);
 
 		camera->bind();
+
+		graph->getRoot()->scale(vec3(-1, 1, -1));
 
 		nodes[0]->draw(graph->getCamera());
 		nodes[2]->draw(graph->getCamera());
 
+		//glEnable(GL_CULL_FACE);
+		//glCullFace(GL_BACK);
+		glDisable(GL_CULL_FACE);
 		glEnable(GL_CLIP_DISTANCE0);
+
+		nodes[3]->children[0]->children[1]->setCallback(nullptr);
 
 		ShaderProgram* program = ShaderManager::getInstance()->get("scenegraph");
 		program->bind();
 		glUniform4f(program->uniforms["ClipPlane"].index, 0.f, 1.f, 0.f, -0.1f);
 		program->unbind();
-
+		
 		nodes[3]->draw(graph->getCamera());
 
+		nodes[3]->children[0]->children[1]->setCallback(new BackMode());
+
 		glDisable(GL_CLIP_DISTANCE0);
+		glEnable(GL_CULL_FACE);
 	}
 	fbos->unbindFramebuffer();
 
-	camera->changeTranslation(vec3(0, distance, 0));
+	graph->getRoot()->scale(vec3(-1, 1, -1));
+
 	camera->changeRotation(degreesToRadians(180.f), 0.f, 0.f);
+	camera->changeTranslation(vec3(0, distance, 0));
 
 	camera->bind();
 
@@ -470,8 +482,17 @@ void drawSceneGraph() {
 	// Particle System
 	nodes[2]->draw(graph->getCamera());
 
+	glEnable(GL_CLIP_DISTANCE0);
+
+	ShaderProgram* program = ShaderManager::getInstance()->get("scenegraph");
+	program->bind();
+	glUniform4f(program->uniforms["ClipPlane"].index, 0.f, 1.f, 0.f, 0.1f);
+	program->unbind();
+
 	// Ground
 	nodes[3]->draw(graph->getCamera());
+
+	glDisable(GL_CLIP_DISTANCE0);
 }
 
 void setViewProjectionMatrix() {

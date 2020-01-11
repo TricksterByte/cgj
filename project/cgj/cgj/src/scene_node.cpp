@@ -60,6 +60,8 @@ void SceneNode::setShaderProgram(ShaderProgram* program) {
 }
 
 void SceneNode::setCallback(ISceneNodeCallback* c) {
+	if (callback)
+		delete(callback);
 	callback = c;
 }
 
