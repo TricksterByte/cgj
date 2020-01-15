@@ -35,6 +35,8 @@
     <ClCompile Include="src\shader.cpp" />
     <ClCompile Include="src\shader_manager.cpp" />
     <ClCompile Include="src\mesh.cpp" />
+    <ClCompile Include="src\shadowmap.cpp" />
+    <ClCompile Include="src\shadows_fbos.cpp" />
     <ClCompile Include="src\texture.cpp" />
     <ClCompile Include="src\texture_manger.cpp" />
     <ClCompile Include="src\vectors.cpp" />
@@ -60,6 +62,8 @@
     <ClInclude Include="src\shader.h" />
     <ClInclude Include="src\shader_manager.h" />
     <ClInclude Include="src\mesh.h" />
+    <ClInclude Include="src\shadowmap.h" />
+    <ClInclude Include="src\shadows_fbos.h" />
     <ClInclude Include="src\texture.h" />
     <ClInclude Include="src\texture_manager.h" />
     <ClInclude Include="src\vectors.h" />
@@ -77,6 +81,9 @@
     <None Include="assets\particle-fs.glsl" />
     <None Include="assets\particle-gs.glsl" />
     <None Include="assets\particle-vs.glsl" />
+    <None Include="assets\shadowmap-fs.glsl" />
+    <None Include="assets\shadowmap-gs.glsl" />
+    <None Include="assets\shadowmap-vs.glsl" />
     <None Include="assets\silhouette1-fs.glsl" />
     <None Include="assets\silhouette1-vs.glsl" />
     <None Include="assets\skybox-fs.glsl" />

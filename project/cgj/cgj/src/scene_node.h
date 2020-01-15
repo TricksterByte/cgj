@@ -8,6 +8,7 @@
 #include "texture.h"
 #include "shader.h"
 #include "camera.h"
+#include "shadowmap.h"
 #include "i_scene_node_callback.h"
 
 #include <vector>
@@ -28,6 +29,7 @@ public:
 	ISceneNodeCallback* callback;
 
 	Color color[2];
+	ShadowMap* shadowMap;
 	float steps;
 	std::vector<TextureInfo*> textures;
 
@@ -58,6 +60,10 @@ public:
 	void rotate(float angle, const vec3& axis);
 	void scale(const vec3& s);
 	virtual void draw(Camera* camera);
+
+	void shadowPass();
+	void setShadowMap(ShadowMap* map);
+
 	void update();
 	void release();
 };

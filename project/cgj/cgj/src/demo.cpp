@@ -47,57 +47,49 @@ float offsetY = 0.0f;
 float yDistance = 0.0f;
 
 void createMeshes() {
-//	std::string s("../../../project/cgj/cgj/assets/torus-flat.obj");
-//	std::string s("../../../project/cgj/cgj/assets/torus-smooth.obj");
-//	std::string s("../../../project/cgj/cgj/assets/suzanne-smooth.obj");
+	std::string s("../../../project/cgj/cgj/assets/cube.obj");
+	Mesh* cube = new Mesh(s);
+	MeshManager::getInstance()->add("cube", cube);
 
-	std::string s("../../../project/cgj/cgj/assets/field.obj");
+	s = "../../../project/cgj/cgj/assets/poplar-treetop1.obj";
+	Mesh* top1 = new Mesh(s);
+	MeshManager::getInstance()->add("poplar-treetop1", top1);
+
+	s = "../../../project/cgj/cgj/assets/poplar-treetop2.obj";
+	Mesh* top2 = new Mesh(s);
+	MeshManager::getInstance()->add("poplar-treetop2", top2);
+
+	s = "../../../project/cgj/cgj/assets/poplar-trunk.obj";
+	Mesh* trunk1 = new Mesh(s);
+	MeshManager::getInstance()->add("poplar-trunk", trunk1);
+
+	s = "../../../project/cgj/cgj/assets/fir-treetop.obj";
+	Mesh* top3 = new Mesh(s);
+	MeshManager::getInstance()->add("fir-treetop", top3);
+
+	s = "../../../project/cgj/cgj/assets/fir-trunk.obj";
+	Mesh* trunk2 = new Mesh(s);
+	MeshManager::getInstance()->add("fir-trunk", trunk2);
+
+	s = "../../../project/cgj/cgj/assets/field.obj";
 	Mesh* ground = new Mesh(s);
 	MeshManager::getInstance()->add("ground", ground);
+
+	s = "../../../project/cgj/cgj/assets/water.obj";
+	Mesh* water = new Mesh(s);
+	MeshManager::getInstance()->add("water", water);
+
+	s = "../../../project/cgj/cgj/assets/terrain.obj";
+	Mesh* terrain = new Mesh(s);
+	MeshManager::getInstance()->add("terrain", terrain);
+
+	s = "../../../project/cgj/cgj/assets/lake.obj";
+	Mesh* lake = new Mesh(s);
+	MeshManager::getInstance()->add("lake", lake);
 
 	s = "../../../project/cgj/cgj/assets/tent.obj";
 	Mesh* tent = new Mesh(s);
 	MeshManager::getInstance()->add("tent", tent);
-
-	s = "../../../project/cgj/cgj/assets/poplar-trunk.obj";
-	Mesh* poplar_trunk = new Mesh(s);
-	MeshManager::getInstance()->add("poplar-trunk", poplar_trunk);
-
-	s = "../../../project/cgj/cgj/assets/poplar-treetop1.obj";
-	Mesh* poplar_treetop1 = new Mesh(s);
-	MeshManager::getInstance()->add("poplar-treetop1", poplar_treetop1);
-
-	s = "../../../project/cgj/cgj/assets/poplar-treetop2.obj";
-	Mesh* poplar_treetop2 = new Mesh(s);
-	MeshManager::getInstance()->add("poplar-treetop2", poplar_treetop2);
-
-	s = "../../../project/cgj/cgj/assets/oak-trunk.obj";
-	Mesh* oak_trunk = new Mesh(s);
-	MeshManager::getInstance()->add("oak-trunk", oak_trunk);
-
-	s = "../../../project/cgj/cgj/assets/oak-treetop1.obj";
-	Mesh* oak_treetop1 = new Mesh(s);
-	MeshManager::getInstance()->add("oak-treetop1", oak_treetop1);
-
-	s = "../../../project/cgj/cgj/assets/oak-treetop2.obj";
-	Mesh* oak_treetop2 = new Mesh(s);
-	MeshManager::getInstance()->add("oak-treetop2", oak_treetop2);
-
-	s = "../../../project/cgj/cgj/assets/fir-trunk.obj";
-	Mesh* fir_trunk = new Mesh(s);
-	MeshManager::getInstance()->add("fir-trunk", fir_trunk);
-
-	s = "../../../project/cgj/cgj/assets/fir-treetop.obj";
-	Mesh* fir_treetop = new Mesh(s);
-	MeshManager::getInstance()->add("fir-treetop", fir_treetop);
-
-	s = "../../../project/cgj/cgj/assets/cube.obj";
-	Mesh* cube = new Mesh(s);
-	MeshManager::getInstance()->add("skybox", cube);
-
-	s = "../../../project/cgj/cgj/assets/water-scaled.obj";
-	Mesh* water = new Mesh(s);
-	MeshManager::getInstance()->add("water", water);
 }
 
 void createTextures() {
@@ -105,40 +97,30 @@ void createTextures() {
 	cubemap->loadCubeMap("../../../project/cgj/cgj/assets/nightsky_", ".jpg");
 	TextureManager::getInstance()->add("skybox", (Texture*)cubemap);
 
-	Texture2D* dudvMap = new Texture2D();
-	dudvMap->load("../../../project/cgj/cgj/assets/waterDUDV.png");
-	TextureManager::getInstance()->add("waterDuDv", (Texture*)dudvMap);
+	Texture2D* dudv = new Texture2D();
+	dudv->load("../../../project/cgj/cgj/assets/waterDUDV.png");
+	TextureManager::getInstance()->add("waterDuDv", (Texture*)dudv);
 }
 
 void createToonShader() {
 	ShaderProgram* program = new ShaderProgram();
 
-/** /
-	// Vertex Shading
-	program->addShader(GL_VERTEX_SHADER, "../../../project/cgj/cgj/assets/celshading1-vs.glsl");
-	program->addShader(GL_FRAGMENT_SHADER, "../../../project/cgj/cgj/assets/celshading1-fs.glsl");
-/**/
-	// Pixel Shading
 	program->addShader(GL_VERTEX_SHADER, "../../../project/cgj/cgj/assets/celshading2-vs.glsl");
-//	program->addShader(GL_FRAGMENT_SHADER, "../../../project/cgj/cgj/assets/celshading2-fs.glsl");
 	program->addShader(GL_FRAGMENT_SHADER, "../../../project/cgj/cgj/assets/celshadingcolor-fs.glsl");
-/**/
 
 	program->addAttribute("inVertex", Mesh::VERTEX);
 	program->addAttribute("inNormal", Mesh::NORMAL);
 	program->addUniform("ModelMatrix");
-	program->addUniform("NormalMatrix");
 	program->addUniformBlock("Camera", UBO_BP);
 	program->addUniform("Color1");
 	program->addUniform("Color2");
 	program->addUniform("Steps");
-	program->addUniform("LightDirection");
+	program->addUniform("FarPlane");
+	program->addUniform("DepthCube");
+	program->addUniform("LightPosition");
+	program->addUniform("LightIntensity");
 	program->addUniform("ClipPlane");
 	program->create();
-
-	program->bind();
-	glUniform3f(program->uniforms["LightDirection"].index, -1.0f, -2.f, -2.0f);
-	program->unbind();
 
 	ShaderManager::getInstance()->add("scenegraph", program);
 }
@@ -153,6 +135,7 @@ void createSilhouetteShader() {
 	program->addUniform("ModelMatrix");
 	program->addUniformBlock("Camera", UBO_BP);
 	program->addUniform("Offset");
+	program->addUniform("ClipPlane");
 	program->create();
 
 	program->bind();
@@ -160,22 +143,6 @@ void createSilhouetteShader() {
 	program->unbind();
 
 	ShaderManager::getInstance()->add("silhouette", program);
-}
-
-void createParticleSystemShader() {
-	ShaderProgram* program = new ShaderProgram();
-
-	program->addShader(GL_VERTEX_SHADER, "../../../project/cgj/cgj/assets/particle-vs.glsl");
-	program->addShader(GL_GEOMETRY_SHADER, "../../../project/cgj/cgj/assets/particle-gs.glsl");
-	program->addShader(GL_FRAGMENT_SHADER, "../../../project/cgj/cgj/assets/particle-fs.glsl");
-	program->addAttribute("inVertex", Mesh::VERTEX);
-	program->addUniform("Color");
-	program->addUniform("Size");
-	program->addUniform("ModelMatrix");
-	program->addUniformBlock("Camera", UBO_BP);
-	program->create();
-
-	ShaderManager::getInstance()->add("particles", program);
 }
 
 void createSkyboxShader() {
@@ -191,6 +158,17 @@ void createSkyboxShader() {
 
 	ShaderManager::getInstance()->add("skybox", program);
 }
+
+class BackMode : public ISceneNodeCallback {
+public:
+	void beforeDraw(SceneNode* node) {
+		glCullFace(GL_FRONT);
+	}
+
+	void afterDraw(SceneNode* node) {
+		glCullFace(GL_BACK);
+	}
+};
 
 void createWaterShader() {
 	ShaderProgram* program = new ShaderProgram();
@@ -209,16 +187,29 @@ void createWaterShader() {
 	ShaderManager::getInstance()->add("water", program);
 }
 
-class BackMode : public ISceneNodeCallback {
-public:
-	void beforeDraw(SceneNode* node) {
-		glCullFace(GL_FRONT);
-	}
+void createShadowShader() {
+	ShaderProgram* program = new ShaderProgram();
 
-	void afterDraw(SceneNode* node) {
-		glCullFace(GL_BACK);
-	}
-};
+	program->addShader(GL_VERTEX_SHADER, "../../../project/cgj/cgj/assets/shadowmap-vs.glsl");
+	program->addShader(GL_GEOMETRY_SHADER, "../../../project/cgj/cgj/assets/shadowmap-gs.glsl");
+	program->addShader(GL_FRAGMENT_SHADER, "../../../project/cgj/cgj/assets/shadowmap-fs.glsl");
+
+	program->addAttribute("inVertex", Mesh::VERTEX);
+	program->addUniform("ModelMatrix");
+	program->addUniform("LightPosition");
+	program->addUniform("FarPlane");
+	program->addUniform("ShadowMatrices[0]");
+	program->addUniform("ShadowMatrices[1]");
+	program->addUniform("ShadowMatrices[2]");
+	program->addUniform("ShadowMatrices[3]");
+	program->addUniform("ShadowMatrices[4]");
+	program->addUniform("ShadowMatrices[5]");
+	program->create();
+
+	ShaderManager::getInstance()->add("shadowmap", program);
+}
+
+// --------------------------------------- SCENE ------------------------------------------
 
 SceneNode* createPoplarTree(SceneNode* node, const vec3& t, const qtrn& r, const vec3& s) {
 	SceneNode* c = node->createNode();
@@ -257,45 +248,6 @@ SceneNode* createPoplarTree(SceneNode* node, const vec3& t, const qtrn& r, const
 	n22->setCallback(new BackMode());
 
 	c->setModelMatrix(t, r, s);
-
-	return c;
-}
-
-SceneNode* createOakTree(SceneNode* node) {
-	SceneNode* c = node->createNode();
-
-	SceneNode* n1 = c->createNode();
-	n1->setMesh(MeshManager::getInstance()->get("oak-trunk"));
-	n1->setShaderProgram(ShaderManager::getInstance()->get("scenegraph"));
-	n1->setColor({ 0.75f, 0.615f, 0.459f }, { 0.59f, 0.447f, 0.278f });
-	n1->setSteps(4);
-
-	SceneNode* n11 = n1->createNode();
-	n11->setMesh(MeshManager::getInstance()->get("oak-treetop1"));
-	n11->setShaderProgram(ShaderManager::getInstance()->get("scenegraph"));
-	n11->setColor({ 0.278f, 0.569f, 0.33f }, { 0.f, 0.2f, 0.2f });
-	n11->setSteps(4);
-
-	SceneNode* n12 = n1->createNode();
-	n12->setMesh(MeshManager::getInstance()->get("oak-treetop2"));
-	n12->setShaderProgram(ShaderManager::getInstance()->get("scenegraph"));
-	n12->setColor({ 0.f, 0.35f, 0.2f }, { 0.f, 0.2f, 0.2f });
-	n12->setSteps(4);
-
-	SceneNode* n2 = c->createNode();
-	n2->setMesh(MeshManager::getInstance()->get("oak-trunk"));
-	n2->setShaderProgram(ShaderManager::getInstance()->get("silhouette"));
-	n2->setCallback(new BackMode());
-
-	SceneNode* n21 = n2->createNode();
-	n21->setMesh(MeshManager::getInstance()->get("oak-treetop1"));
-	n21->setShaderProgram(ShaderManager::getInstance()->get("silhouette"));
-	n21->setCallback(new BackMode());
-
-	SceneNode* n22 = n2->createNode();
-	n22->setMesh(MeshManager::getInstance()->get("oak-treetop2"));
-	n22->setShaderProgram(ShaderManager::getInstance()->get("silhouette"));
-	n22->setCallback(new BackMode());
 
 	return c;
 }
@@ -349,17 +301,17 @@ SceneNode* createTent(SceneNode* node, const vec3& t, const qtrn& r, const vec3&
 	return c;
 }
 
-ParticleSystem* pSystem;
+// ----------------------------------------------------------------------------------------
+
+ShadowMap* map;
+ShadowsFramebuffers* fbos;
 Water* water;
 
 void createSceneGraph() {
 	SceneGraph* graph = new SceneGraph();
 	graph->setCamera(new Camera(UBO_BP));
 
-	graph->getCamera()->setProjection(
-		MatrixFactory::createPerspectiveProjectionMatrix(degreesToRadians(60), 640.0f / 480.0f, 1, 100));
-//		MatrixFactory::createOrtographicProjectionMatrix(-2, 2, -2, 2, 1, 100));
-
+	graph->getCamera()->setProjection(MatrixFactory::createPerspectiveProjectionMatrix(degreesToRadians(60), 640.0f / 480.0f, 1, 100));
 	graph->getCamera()->changeTranslation(vec3(0, -2.f, 0));
 
 	SceneManager::getInstance()->add("scenegraph", graph);
@@ -367,10 +319,10 @@ void createSceneGraph() {
 	SceneNode* root = graph->getRoot();
 	root->setShaderProgram(ShaderManager::getInstance()->get("scenegraph"));
 
-	TextureInfo* tinfo0 = new TextureInfo(GL_TEXTURE0, 0, "TexCubeMap", TextureManager::getInstance()->get("skybox"), nullptr);
+	TextureInfo* tinfo0 = new TextureInfo(GL_TEXTURE1, 1, "TexCubeMap", TextureManager::getInstance()->get("skybox"), nullptr);
 
 	SceneNode* skybox = root->createNode();
-	skybox->setMesh(MeshManager::getInstance()->get("skybox"));
+	skybox->setMesh(MeshManager::getInstance()->get("cube"));
 	skybox->setShaderProgram(ShaderManager::getInstance()->get("skybox"));
 	skybox->setCallback(new BackMode());
 	skybox->addTextureInfo(tinfo0);
@@ -384,41 +336,47 @@ void createSceneGraph() {
 	water->setShaderProgram(ShaderManager::getInstance()->get("water"));
 	water->addTextureInfo(tinfo1);
 	water->setModelMatrix(
-		AXIS_Y * -0.1f,
+		vec3(1, -0.1f, 0),
 		qtrn(),
-		vec3(8.0f, 8.0f, 8.0f)
+		vec3(4.0f, 1.0f, 5.0f)
 	);
 	root->addNode(water);
 
-	pSystem = new ParticleSystem(100);
-	pSystem->setShaderProgram(ShaderManager::getInstance()->get("particles"));
-	root->addNode(pSystem);
-
 	SceneNode* ground = root->createNode();
-	ground->setMesh(MeshManager::getInstance()->get("ground"));
+	ground->setMesh(MeshManager::getInstance()->get("terrain"));
 	ground->setShaderProgram(ShaderManager::getInstance()->get("scenegraph"));
-	ground->setColor({ 0.f, 0.35f, 0.2f }, { 0.f, 0.2f, 0.2f });
-	ground->setSteps(4);
+	ground->setColor({ 0.f, 0.2f, 0.2f }, { 0.f, 0.2f, 0.2f });
+	ground->setSteps(2);
 	ground->setModelMatrix(
-			AXIS_Y * -0.1f,
-			qtrn(),
-			vec3(.75f, .75f, .75f)
+		AXIS_Y * -0.4f,
+		qtrn(),
+		vec3(1.5f, 1.5f, 1.55f)
 	);
 
-	createTent(ground, vec3(1.6f, 0.1f, -0.2f), qtrn(), vec3(0.3f, 0.3f, 0.3f));
+	SceneNode* lake = ground->createNode();
+	lake->setMesh(MeshManager::getInstance()->get("lake"));
+	lake->setShaderProgram(ShaderManager::getInstance()->get("scenegraph"));
+	lake->setColor({ 0.48f, 0.39f, 0.29f }, { 0.48f, 0.39f, 0.29f });
+	lake->setSteps(2);
 
-	createPoplarTree(ground, vec3(0.3f, 0.1f, 0.0f), qtrn(), vec3(0.4f, 0.4f, 0.4f));
-	createPoplarTree(ground, vec3(1.2f, 0.1f, 1.2f), qtrn(), vec3(0.4f, 0.4f, 0.4f));
-	createPoplarTree(ground, vec3(0.3f, 0.1f, 0.6f), qtrn(), vec3(0.4f, 0.4f, 0.4f));
-	createPoplarTree(ground, vec3(1.2f, 0.1f, -1.2f), qtrn(), vec3(0.4f, 0.4f, 0.4f));
-	createPoplarTree(ground, vec3(-1.0f, 0.1f, 0.2f), qtrn(), vec3(0.4f, 0.4f, 0.4f));
-	createPoplarTree(ground, vec3(-0.6f, 0.1f, -1.2f), qtrn(), vec3(0.4f, 0.4f, 0.4f));
-	createFirTree(ground, vec3(-1.5f, 0.1f, 1.5f), qtrn(), vec3(0.4f, 0.4f, 0.4f));
-	createFirTree(ground, vec3(-2.0f, 0.1f, 0.0f), qtrn(), vec3(0.4f, 0.4f, 0.4f));
-	createFirTree(ground, vec3(-1.0f, 0.1f, 1.0f), qtrn(), vec3(0.4f, 0.4f, 0.4f));
-	createFirTree(ground, vec3(-0.3f, 0.1f, 1.0f), qtrn(), vec3(0.4f, 0.4f, 0.4f));
-	createFirTree(ground, vec3(-0.3f, 0.1f, 2.0f), qtrn(), vec3(0.4f, 0.4f, 0.4f));
-	createFirTree(ground, vec3(0.2f, 0.1f, -1.7f), qtrn(), vec3(0.4f, 0.4f, 0.4f));
+	createPoplarTree(ground, vec3(-1.7f, 0.2f, 0.0f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
+	createPoplarTree(ground, vec3(-1.2f, 0.2f, 1.2f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
+	createPoplarTree(ground, vec3(-2.3f, 0.2f, 0.6f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
+	createPoplarTree(ground, vec3(-1.2f, 0.2f, 0.2f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
+	createPoplarTree(ground, vec3(-1.2f, 0.2f, -1.2f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
+	createPoplarTree(ground, vec3(-1.7f, 0.2f, -1.2f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
+	createFirTree(ground, vec3(-2.0f, 0.2f, 1.5f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
+	createFirTree(ground, vec3(-2.0f, 0.2f, 0.0f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
+	createFirTree(ground, vec3(-1.6f, 0.2f, 1.0f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
+	createFirTree(ground, vec3(-2.f, 0.2f, 1.0f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
+	createFirTree(ground, vec3(-2.3f, 0.2f, 2.0f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
+	createFirTree(ground, vec3(-1.2f, 0.2f, -2.3f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
+	createFirTree(ground, vec3(-1.2f, 0.2f, -1.7f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
+	createTent(ground, vec3(-1.4, 0.2, -0.7), qtrn(degreesToRadians(30.f), AXIS_Y), vec3(0.15, 0.15, 0.15));
+	
+	map = new ShadowMap(1024, 1024, 1080, 720, vec3(-1.3, 0.5, -0.6), 0.f, 100.f);
+	map->setFbos(new ShadowsFramebuffers(1024, 1024, 1080, 720));
+	ground->setShadowMap(map);
 }
 
 void drawSceneGraph() {
@@ -426,13 +384,40 @@ void drawSceneGraph() {
 
 	std::vector<SceneNode*> nodes = graph->getRoot()->children;
 
-	Camera* camera;
-	camera = graph->getCamera();
+	glCullFace(GL_FRONT);
+	map->getFbos()->bindFramebuffer();
+	glClear(GL_DEPTH_BUFFER_BIT);
+	graph->getRoot()->children[2]->shadowPass();
+	map->getFbos()->unbindFramebuffer();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glCullFace(GL_BACK);
+
+	Camera* camera = graph->getCamera();
 	camera->bind();
+
+	WaterFramebuffers* fbos = water->getFbos();
+	fbos->bindRefractionFramebuffer();
+	{
+		glEnable(GL_CLIP_DISTANCE0);
+
+		ShaderProgram* program = ShaderManager::getInstance()->get("scenegraph");
+		program->bind();
+		glUniform4f(program->uniforms["ClipPlane"].index, 0.f, -1.f, 0.f, -0.1f);
+		program->unbind();
+
+		program = ShaderManager::getInstance()->get("silhouette");
+		program->bind();
+		glUniform4f(program->uniforms["ClipPlane"].index, 0.f, -1.f, 0.f, -0.1f);
+		program->unbind();
+
+		nodes[2]->draw(camera);
+
+		glDisable(GL_CLIP_DISTANCE0);
+	}
+	fbos->unbindFramebuffer();
 
 	float distance = 2.f * (camera->translation.at(1, 3) + 0.1f);
 
-	WaterFramebuffers* fbos = water->getFbos();
 	fbos->bindReflectionFramebuffer();
 	{
 		camera->changeTranslation(vec3(0, -distance, 0));
@@ -443,44 +428,32 @@ void drawSceneGraph() {
 		graph->getRoot()->scale(vec3(-1, 1, -1));
 
 		nodes[0]->draw(graph->getCamera());
-		nodes[2]->draw(graph->getCamera());
 
-		//glEnable(GL_CULL_FACE);
-		//glCullFace(GL_BACK);
-		glDisable(GL_CULL_FACE);
 		glEnable(GL_CLIP_DISTANCE0);
-
-		nodes[3]->children[0]->children[1]->setCallback(nullptr);
 
 		ShaderProgram* program = ShaderManager::getInstance()->get("scenegraph");
 		program->bind();
 		glUniform4f(program->uniforms["ClipPlane"].index, 0.f, 1.f, 0.f, -0.1f);
 		program->unbind();
-		
-		nodes[3]->draw(graph->getCamera());
 
-		nodes[3]->children[0]->children[1]->setCallback(new BackMode());
+		program = ShaderManager::getInstance()->get("silhouette");
+		program->bind();
+		glUniform4f(program->uniforms["ClipPlane"].index, 0.f, 1.f, 0.f, -0.1f);
+		program->unbind();
+
+		nodes[2]->draw(graph->getCamera());
 
 		glDisable(GL_CLIP_DISTANCE0);
-		glEnable(GL_CULL_FACE);
 	}
 	fbos->unbindFramebuffer();
 
 	graph->getRoot()->scale(vec3(-1, 1, -1));
-
 	camera->changeRotation(degreesToRadians(180.f), 0.f, 0.f);
 	camera->changeTranslation(vec3(0, distance, 0));
-
 	camera->bind();
 
-	// Skybox
-	nodes[0]->draw(graph->getCamera());
-
-	// Water
-	nodes[1]->draw(graph->getCamera());
-
-	// Particle System
-	nodes[2]->draw(graph->getCamera());
+	nodes[0]->draw(camera);
+	nodes[1]->draw(camera);
 
 	glEnable(GL_CLIP_DISTANCE0);
 
@@ -489,8 +462,12 @@ void drawSceneGraph() {
 	glUniform4f(program->uniforms["ClipPlane"].index, 0.f, 1.f, 0.f, 0.1f);
 	program->unbind();
 
-	// Ground
-	nodes[3]->draw(graph->getCamera());
+	program = ShaderManager::getInstance()->get("silhouette");
+	program->bind();
+	glUniform4f(program->uniforms["ClipPlane"].index, 0.f, 1.f, 0.f, 0.1f);
+	program->unbind();
+
+	nodes[2]->draw(camera);
 
 	glDisable(GL_CLIP_DISTANCE0);
 }
@@ -574,6 +551,8 @@ void setupErrorCallback()
 
 void window_close_callback(GLFWwindow* win)
 {
+	delete(map);
+	delete(fbos);
 	ShaderManager::freeInstance();
 	SceneManager::freeInstance();
 	MeshManager::freeInstance();
@@ -753,7 +732,7 @@ GLFWwindow* setup(int major, int minor,
 	createTextures();
 	createToonShader();
 	createSilhouetteShader();
-	createParticleSystemShader();
+	createShadowShader();
 	createSkyboxShader();
 	createWaterShader();
 	createSceneGraph();
@@ -761,6 +740,9 @@ GLFWwindow* setup(int major, int minor,
 }
 
 ////////////////////////////////////////////////////////////////////////// RUN
+
+float updateLights = 0.055f;
+float updateTime = 0.f;
 
 void display(GLFWwindow* win, float elapsed_sec)
 {
@@ -785,8 +767,15 @@ void display(GLFWwindow* win, float elapsed_sec)
 		program->unbind();
 	}
 
+	updateTime += elapsed_sec;
+	//if (updateTime >= updateLights) {
+	//	updateTime = 0.f;
+	//	map->lightPos = vec3(random(0, 0.1f), random(2.f, 2.2f), random(0, 0.1f));
+	//	map->lightIntensity = random(0.35, 0.45);
+	//}
+
+	offsetX += elapsed_sec * 0.7f;
 	water->update(elapsed_sec);
-	pSystem->update(elapsed_sec);
 	setViewProjectionMatrix();
 	drawSceneGraph();
 }

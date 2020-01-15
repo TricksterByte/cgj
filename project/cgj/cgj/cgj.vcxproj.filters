@@ -78,6 +78,12 @@
     <ClCompile Include="src\water.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\shadowmap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shadows_fbos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\math_helpers.h">
@@ -149,6 +155,12 @@
     <ClInclude Include="src\water.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\shadowmap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shadows_fbos.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\basic-fs.glsl">
@@ -197,6 +209,15 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="assets\water-vs.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\shadowmap-fs.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\shadowmap-gs.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\shadowmap-vs.glsl">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

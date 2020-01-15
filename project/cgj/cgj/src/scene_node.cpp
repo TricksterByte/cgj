@@ -1,6 +1,7 @@
 #include "camera.h"
 #include "scene_node.h"
 #include "matrix_factory.h"
+#include "shader_manager.h"
 
 SceneNode::SceneNode() {
 	ModelMatrix = MatrixFactory::createIdentityMat4();
@@ -147,13 +148,29 @@ void SceneNode::draw(Camera* camera) {
 			glUniformMatrix3fv(shaderProgram->uniforms["NormalMatrix"].index, 1, GL_TRUE, NormalMatrix.data);
 		}
 
-		if (shaderProgram->isUniform("Color1") && shaderProgram->isUniform("Color2")) {
+		if (shaderProgram->isUniform("LightPosition"))
+			glUniform3f(shaderProgram->uniforms["LightPosition"].index, shadowMap->lightPos.x, shadowMap->lightPos.y, shadowMap->lightPos.z);
+
+		if (shaderProgram->isUniform("LightIntensity"))
+			glUniform1f(shaderProgram->uniforms["LightIntensity"].index, shadowMap->lightIntensity);
+
+		if (shaderProgram->isUniform("FarPlane"))
+			glUniform1f(shaderProgram->uniforms["FarPlane"].index, shadowMap->far);
+
+		if (shaderProgram->isUniform("Color1")) {
 			glUniform3fv(shaderProgram->uniforms["Color1"].index, 1, color[0].data());
+		}
+
+		if (shaderProgram->isUniform("Color2")) {
 			glUniform3fv(shaderProgram->uniforms["Color2"].index, 1, color[1].data());
 		}
 
-		if (shaderProgram->isUniform("Steps")) {
+		if (shaderProgram->isUniform("Steps"))
 			glUniform1f(shaderProgram->uniforms["Steps"].index, steps);
+
+		if (shaderProgram->isUniform("DepthCube")) {
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_CUBE_MAP, shadowMap->getFbos()->depthCubeMapId);
 		}
 
 		if (!textures.empty()) {
@@ -174,6 +191,39 @@ void SceneNode::draw(Camera* camera) {
 	}
 
 	for (SceneNode* child : children) child->draw(camera);
+}
+
+void SceneNode::shadowPass() {
+	if (shadowMap != nullptr && mesh != nullptr) {
+		ShaderProgram* shadow = ShaderManager::getInstance()->get("shadowmap");
+		shadow->bind();
+
+		if (shadow->isUniform("ModelMatrix"))
+			glUniformMatrix4fv(shadow->uniforms["ModelMatrix"].index, 1, GL_TRUE, DrawMatrix.data);
+
+		if (shadow->isUniform("LightPosition"))
+			glUniform3f(shadow->uniforms["LightPosition"].index, shadowMap->lightPos.x, shadowMap->lightPos.y, shadowMap->lightPos.z);
+
+		for (unsigned int i = 0; i < 6; ++i) {
+			if (shadow->isUniform("ShadowMatrices[" + std::to_string(i) + "]"))
+				glUniformMatrix4fv(shadow->uniforms["ShadowMatrices[" + std::to_string(i) + "]"].index, 1, GL_TRUE, shadowMap->shadowMats[i].data);
+		}
+
+		if (shadow->isUniform("FarPlane"))
+			glUniform1f(shadow->uniforms["FarPlane"].index, shadowMap->far);
+
+		mesh->draw();
+
+		shadow->unbind();
+	}
+
+	for (SceneNode* child : children) child->shadowPass();
+}
+
+void SceneNode::setShadowMap(ShadowMap* map) {
+	shadowMap = map;
+
+	for (SceneNode* child : children) child->setShadowMap(map);
 }
 
 void SceneNode::update() {
