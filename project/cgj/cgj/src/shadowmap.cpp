@@ -35,3 +35,7 @@ void ShadowMap::calcMatrices() {
 	shadowMats[4] = proj * MatrixFactory::createViewMatrix(lightPos, lightPos + vec3(0.f, 0.f, 1.f), vec3(0.f, -1.f, 0.f));
 	shadowMats[5] = proj * MatrixFactory::createViewMatrix(lightPos, lightPos + vec3(0.f, 0.f, -1.f), vec3(0.f, -1.f, 0.f));
 }
+
+void ShadowMap::lightIntensityToggle() {
+	lightIntensity = (lightIntensity == 0.4f? 0.0f : 0.4f);
+}

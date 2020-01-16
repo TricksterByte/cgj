@@ -5,11 +5,9 @@
 #include "particle_system.h"
 
 class FireParticleSystem : public ParticleSystem {
-	bool active = true;
 public:
 	FireParticleSystem(int max, bool hasTex);
 	~FireParticleSystem();
-	void toggle();
 private:
 	virtual Particle* createParticle();
 };

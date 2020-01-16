@@ -5,11 +5,9 @@
 #include "particle_system.h"
 
 class RainParticleSystem : public ParticleSystem {
-	bool active = false;
 public:
 	RainParticleSystem(int max, bool hasTex);
 	~RainParticleSystem();
-	void toggle();
 private:
 	virtual Particle* createParticle();
 };

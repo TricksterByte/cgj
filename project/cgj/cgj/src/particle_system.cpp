@@ -91,14 +91,16 @@ void ParticleSystem::destroyBufferObjects() {
 
 void ParticleSystem::update(float dt) { //fix this (initial burst)
 	int created = 0;
-	while (particles.size() != maxParticles) {
-		if (timeSinceLast > EPSILON) {
-			particles.push_back(createParticle());
-			timeSinceLast -= EPSILON;
-		}
-		else {
-			timeSinceLast += dt;
-			break;
+	if (active) {
+		while (particles.size() != maxParticles) {
+			if (timeSinceLast > EPSILON) {
+				particles.push_back(createParticle());
+				timeSinceLast -= EPSILON;
+			}
+			else {
+				timeSinceLast += dt;
+				break;
+			}
 		}
 	}
 
@@ -211,6 +213,10 @@ void ParticleSystem::draw(Camera* cam) {
 	else {
 		glDisable(GL_BLEND);
 	}
+}
+
+void ParticleSystem::toggle() {
+	active = !active;
 }
 
 Particle* ParticleSystem::createParticle() {

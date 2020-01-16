@@ -1,12 +1,14 @@
 #include "fire_particle_system.h"
 
-FireParticleSystem::FireParticleSystem(int max, bool hasTexture) : ParticleSystem(max, hasTexture) {}
+FireParticleSystem::FireParticleSystem(int max, bool hasTexture) : ParticleSystem(max, hasTexture) {
+	active = true;
+}
 
 FireParticleSystem::~FireParticleSystem() {}
 
-void FireParticleSystem::toggle() {
-	active = !active;
-}
+//void FireParticleSystem::toggle() {
+//	active = !active;
+//}
 
 Particle* FireParticleSystem::createParticle() {
 	float x = random(-.05f, .05f);

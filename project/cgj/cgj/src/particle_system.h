@@ -30,7 +30,8 @@ class ParticleSystem : public SceneNode {
 	std::vector<Size> Sizes;
 	std::vector<TexOffset> TexOffsets;
 	std::vector<Blend> Blends;
-
+protected:
+	bool active = true;
 public:
 	static const GLuint VERTEX = 0;
 	static const GLuint COLOR = 1;
@@ -43,6 +44,7 @@ public:
 
 	virtual void update(float dt);
 	virtual void draw(Camera* cam);
+	virtual void toggle();
 private:
 	void createBufferObjects();
 	void destroyBufferObjects();

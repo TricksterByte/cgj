@@ -29,6 +29,7 @@ public:
 	void setFbos(ShadowsFramebuffers* fbos);
 	ShadowsFramebuffers* getFbos();
 	void calcMatrices();
+	void lightIntensityToggle();
 };
 
 #endif

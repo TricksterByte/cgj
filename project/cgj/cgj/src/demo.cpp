@@ -88,9 +88,13 @@ void createMeshes() {
 	Mesh* lake = new Mesh(s);
 	MeshManager::getInstance()->add("lake", lake);
 
-	s = "../../../project/cgj/cgj/assets/tent.obj";
+	s = "../../../project/cgj/cgj/assets/tent4.obj";
 	Mesh* tent = new Mesh(s);
 	MeshManager::getInstance()->add("tent", tent);
+
+	s = "../../../project/cgj/cgj/assets/campfire.obj";
+	Mesh* campfire = new Mesh(s);
+	MeshManager::getInstance()->add("campfire", campfire);
 }
 
 void createTextures() {
@@ -344,6 +348,25 @@ SceneNode* createTent(SceneNode* node, const vec3& t, const qtrn& r, const vec3&
 	return c;
 }
 
+SceneNode* createCampfire(SceneNode* node, const vec3& t, const qtrn& r, const vec3& s) {
+	SceneNode* c = node->createNode();
+
+	SceneNode* n1 = c->createNode();
+	n1->setMesh(MeshManager::getInstance()->get("campfire"));
+	n1->setShaderProgram(ShaderManager::getInstance()->get("scenegraph"));
+	n1->setColor({ 0.31f, 0.21f, 0.12f }, { 0.14f, 0.12f, 0.12f });
+	n1->setSteps(4);
+
+	SceneNode* n2 = c->createNode();
+	n2->setMesh(MeshManager::getInstance()->get("campfire"));
+	n2->setShaderProgram(ShaderManager::getInstance()->get("silhouette"));
+	n2->setCallback(new BackMode());
+
+	c->setModelMatrix(t, r, s);
+
+	return c;
+}
+
 // ----------------------------------------------------------------------------------------
 
 ShadowMap* map;
@@ -417,7 +440,8 @@ void createSceneGraph() {
 	createFirTree(ground, vec3(-2.3f, 0.2f, 2.0f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
 	createFirTree(ground, vec3(-1.2f, 0.2f, -2.3f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
 	createFirTree(ground, vec3(-1.2f, 0.2f, -1.7f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
-	createTent(ground, vec3(-1.4f, 0.2f, -0.7f), qtrn(degreesToRadians(30.f), AXIS_Y), vec3(0.15f, 0.15f, 0.15f));
+	createTent(ground, vec3(-1.4f, 0.25f, -0.7f), qtrn(degreesToRadians(30.f), AXIS_Y), vec3(0.03f, 0.03f, 0.02f));
+	createCampfire(ground, vec3(-1.23f, 0.25f, -0.3f), qtrn(), vec3(0.01f, 0.01f, 0.01f));
 	
 	map = new ShadowMap(1024, 1024, 1080, 720, vec3(-1.3f, 0.5f, -0.6f), 0.f, 100.f);
 	map->setFbos(new ShadowsFramebuffers(1024, 1024, 1080, 720));
@@ -433,7 +457,7 @@ void createSceneGraph() {
 	fireParticleSystem->move(vec3(0, 0, 1), -0.3f);
 	ground->addNode(fireParticleSystem);
 
-	rainParticleSystem = new RainParticleSystem(1500, false);
+	rainParticleSystem = new RainParticleSystem(3000, false);
 	rainParticleSystem->setShaderProgram(ShaderManager::getInstance()->get("rainParticles"));
 	rainParticleSystem->move(vec3(0, 1, 0), 8.f);
 	root->addNode(rainParticleSystem);
@@ -636,6 +660,7 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods)
 	if (key == GLFW_KEY_T && action == GLFW_PRESS) {
 		fireParticleSystem->toggle();
 		rainParticleSystem->toggle();
+		map->lightIntensityToggle();
 	}
 
 	switch (action) {

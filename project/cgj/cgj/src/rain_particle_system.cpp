@@ -1,12 +1,14 @@
 #include "rain_particle_system.h"
 
-RainParticleSystem::RainParticleSystem(int max, bool hasTexture) : ParticleSystem(max, hasTexture) {}
+RainParticleSystem::RainParticleSystem(int max, bool hasTexture) : ParticleSystem(max, hasTexture) {
+	active = false;
+}
 
 RainParticleSystem::~RainParticleSystem() {}
 
-void RainParticleSystem::toggle() {
-	active = !active;
-}
+//void RainParticleSystem::toggle() {
+//	active = !active;
+//}
 
 Particle* RainParticleSystem::createParticle() {
 	float x = random(-8.f, 8.f);
