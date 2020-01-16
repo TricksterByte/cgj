@@ -178,70 +178,55 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\basic-fs.glsl">
+    <None Include="..\..\..\bin\x64\assets\shaders\celshading2-vs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\basic-vs.glsl">
+    <None Include="..\..\..\bin\x64\assets\shaders\celshadingcolor-fs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\celshading1-fs.glsl">
+    <None Include="..\..\..\bin\x64\assets\shaders\fire-particle-fs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\celshading1-vs.glsl">
+    <None Include="..\..\..\bin\x64\assets\shaders\fire-particle-gs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\celshading2-fs.glsl">
+    <None Include="..\..\..\bin\x64\assets\shaders\fire-particle-vs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\celshading2-vs.glsl">
+    <None Include="..\..\..\bin\x64\assets\shaders\rain-particle-fs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\silhouette1-fs.glsl">
+    <None Include="..\..\..\bin\x64\assets\shaders\rain-particle-gs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\silhouette1-vs.glsl">
+    <None Include="..\..\..\bin\x64\assets\shaders\rain-particle-vs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\celshadingcolor-fs.glsl">
+    <None Include="..\..\..\bin\x64\assets\shaders\shadowmap-fs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\skybox-fs.glsl">
+    <None Include="..\..\..\bin\x64\assets\shaders\shadowmap-gs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\skybox-vs.glsl">
+    <None Include="..\..\..\bin\x64\assets\shaders\shadowmap-vs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\water-fs.glsl">
+    <None Include="..\..\..\bin\x64\assets\shaders\silhouette1-fs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\water-vs.glsl">
+    <None Include="..\..\..\bin\x64\assets\shaders\silhouette1-vs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\shadowmap-fs.glsl">
+    <None Include="..\..\..\bin\x64\assets\shaders\skybox-fs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\shadowmap-gs.glsl">
+    <None Include="..\..\..\bin\x64\assets\shaders\skybox-vs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\shadowmap-vs.glsl">
+    <None Include="..\..\..\bin\x64\assets\shaders\water-fs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\fire-particle-fs.glsl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fire-particle-gs.glsl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\fire-particle-vs.glsl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\rain-particle-fs.glsl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\rain-particle-gs.glsl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\rain-particle-vs.glsl">
+    <None Include="..\..\..\bin\x64\assets\shaders\water-vs.glsl">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

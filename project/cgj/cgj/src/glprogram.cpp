@@ -20,66 +20,58 @@ GLProgram::~GLProgram() {
 }
 
 void GLProgram::createMeshes() {
-	std::string s("../../project/cgj/cgj/assets/cube.obj");
+	std::string s("assets/meshes/cube.obj");
 	Mesh* cube = new Mesh(s);
 	MeshManager::getInstance()->add("cube", cube);
 
-	s = "../../project/cgj/cgj/assets/poplar-treetop1.obj";
+	s = "assets/meshes/poplar-treetop1.obj";
 	Mesh* top1 = new Mesh(s);
 	MeshManager::getInstance()->add("poplar-treetop1", top1);
 
-	s = "../../project/cgj/cgj/assets/poplar-treetop2.obj";
+	s = "assets/meshes/poplar-treetop2.obj";
 	Mesh* top2 = new Mesh(s);
 	MeshManager::getInstance()->add("poplar-treetop2", top2);
 
-	s = "../../project/cgj/cgj/assets/poplar-trunk.obj";
+	s = "assets/meshes/poplar-trunk.obj";
 	Mesh* trunk1 = new Mesh(s);
 	MeshManager::getInstance()->add("poplar-trunk", trunk1);
 
-	s = "../../project/cgj/cgj/assets/fir-treetop.obj";
+	s = "assets/meshes/fir-treetop.obj";
 	Mesh* top3 = new Mesh(s);
 	MeshManager::getInstance()->add("fir-treetop", top3);
 
-	s = "../../project/cgj/cgj/assets/fir-trunk.obj";
+	s = "assets/meshes/fir-trunk.obj";
 	Mesh* trunk2 = new Mesh(s);
 	MeshManager::getInstance()->add("fir-trunk", trunk2);
 
-	s = "../../project/cgj/cgj/assets/field.obj";
-	Mesh* ground = new Mesh(s);
-	MeshManager::getInstance()->add("ground", ground);
-
-	s = "../../project/cgj/cgj/assets/water.obj";
+	s = "assets/meshes/water.obj";
 	Mesh* water = new Mesh(s);
 	MeshManager::getInstance()->add("water", water);
 
-	s = "../../project/cgj/cgj/assets/terrain.obj";
+	s = "assets/meshes/terrain.obj";
 	Mesh* terrain = new Mesh(s);
 	MeshManager::getInstance()->add("terrain", terrain);
 
-	s = "../../project/cgj/cgj/assets/lake.obj";
-	Mesh* lake = new Mesh(s);
-	MeshManager::getInstance()->add("lake", lake);
-
-	s = "../../project/cgj/cgj/assets/tent4.obj";
+	s = "assets/meshes/tent.obj";
 	Mesh* tent = new Mesh(s);
 	MeshManager::getInstance()->add("tent", tent);
 
-	s = "../../project/cgj/cgj/assets/campfire.obj";
+	s = "assets/meshes/campfire.obj";
 	Mesh* campfire = new Mesh(s);
 	MeshManager::getInstance()->add("campfire", campfire);
 }
 
 void GLProgram::createTextures() {
 	TextureCubeMap* cubemap = new TextureCubeMap();
-	cubemap->loadCubeMap("../../project/cgj/cgj/assets/nightsky_", ".jpg");
+	cubemap->loadCubeMap("assets/textures/nightsky_", ".jpg");
 	TextureManager::getInstance()->add("skybox", (Texture*)cubemap);
 
 	Texture2D* dudv = new Texture2D();
-	dudv->load("../../project/cgj/cgj/assets/waterDUDV.png");
+	dudv->load("assets/textures/waterDUDV.png");
 	TextureManager::getInstance()->add("waterDuDv", (Texture*)dudv);
 
 	ParticleTexture* fireParticle = new ParticleTexture(4, true);
-	fireParticle->load("../../project/cgj/cgj/assets/fire.png");
+	fireParticle->load("assets/textures/fire.png");
 	TextureManager::getInstance()->add("fireParticle", (Texture*)fireParticle);
 }
 
@@ -97,8 +89,8 @@ public:
 void GLProgram::createToonShader() {
 	ShaderProgram* shader = new ShaderProgram();
 
-	shader->addShader(GL_VERTEX_SHADER, "../../project/cgj/cgj/assets/celshading2-vs.glsl");
-	shader->addShader(GL_FRAGMENT_SHADER, "../../project/cgj/cgj/assets/celshadingcolor-fs.glsl");
+	shader->addShader(GL_VERTEX_SHADER, "assets/shaders/celshading2-vs.glsl");
+	shader->addShader(GL_FRAGMENT_SHADER, "assets/shaders/celshadingcolor-fs.glsl");
 
 	shader->addAttribute("inVertex", Mesh::VERTEX);
 	shader->addAttribute("inNormal", Mesh::NORMAL);
@@ -120,8 +112,8 @@ void GLProgram::createToonShader() {
 void GLProgram::createSilhouetteShader() {
 	ShaderProgram* shader = new ShaderProgram();
 
-	shader->addShader(GL_VERTEX_SHADER, "../../project/cgj/cgj/assets/silhouette1-vs.glsl");
-	shader->addShader(GL_FRAGMENT_SHADER, "../../project/cgj/cgj/assets/silhouette1-fs.glsl");
+	shader->addShader(GL_VERTEX_SHADER, "assets/shaders/silhouette1-vs.glsl");
+	shader->addShader(GL_FRAGMENT_SHADER, "assets/shaders/silhouette1-fs.glsl");
 	shader->addAttribute("inVertex", Mesh::VERTEX);
 	shader->addAttribute("inNormal", Mesh::NORMAL);
 	shader->addUniform("ModelMatrix");
@@ -140,8 +132,8 @@ void GLProgram::createSilhouetteShader() {
 void GLProgram::createSkyboxShader() {
 	ShaderProgram* shader = new ShaderProgram();
 
-	shader->addShader(GL_VERTEX_SHADER, "../../project/cgj/cgj/assets/skybox-vs.glsl");
-	shader->addShader(GL_FRAGMENT_SHADER, "../../project/cgj/cgj/assets/skybox-fs.glsl");
+	shader->addShader(GL_VERTEX_SHADER, "assets/shaders/skybox-vs.glsl");
+	shader->addShader(GL_FRAGMENT_SHADER, "assets/shaders/skybox-fs.glsl");
 	shader->addAttribute("inVertex", Mesh::VERTEX);
 	shader->addUniform("ModelMatrix");
 	shader->addUniformBlock("Camera", UBO_BP);
@@ -154,8 +146,8 @@ void GLProgram::createSkyboxShader() {
 void GLProgram::createWaterShader() {
 	ShaderProgram* shader = new ShaderProgram();
 
-	shader->addShader(GL_VERTEX_SHADER, "../../project/cgj/cgj/assets/water-vs.glsl");
-	shader->addShader(GL_FRAGMENT_SHADER, "../../project/cgj/cgj/assets/water-fs.glsl");
+	shader->addShader(GL_VERTEX_SHADER, "assets/shaders/water-vs.glsl");
+	shader->addShader(GL_FRAGMENT_SHADER, "assets/shaders/water-fs.glsl");
 	shader->addAttribute("inVertex", Mesh::VERTEX);
 	shader->addAttribute("inTexcoord", Mesh::TEXCOORD);
 	shader->addUniform("ModelMatrix");
@@ -171,9 +163,9 @@ void GLProgram::createWaterShader() {
 void GLProgram::createShadowShader() {
 	ShaderProgram* shader = new ShaderProgram();
 
-	shader->addShader(GL_VERTEX_SHADER, "../../project/cgj/cgj/assets/shadowmap-vs.glsl");
-	shader->addShader(GL_GEOMETRY_SHADER, "../../project/cgj/cgj/assets/shadowmap-gs.glsl");
-	shader->addShader(GL_FRAGMENT_SHADER, "../../project/cgj/cgj/assets/shadowmap-fs.glsl");
+	shader->addShader(GL_VERTEX_SHADER, "assets/shaders/shadowmap-vs.glsl");
+	shader->addShader(GL_GEOMETRY_SHADER, "assets/shaders/shadowmap-gs.glsl");
+	shader->addShader(GL_FRAGMENT_SHADER, "assets/shaders/shadowmap-fs.glsl");
 
 	shader->addAttribute("inVertex", Mesh::VERTEX);
 	shader->addUniform("ModelMatrix");
@@ -193,9 +185,9 @@ void GLProgram::createShadowShader() {
 void GLProgram::createFireParticleSystemShader() {
 	ShaderProgram* shader = new ShaderProgram();
 
-	shader->addShader(GL_VERTEX_SHADER, "../../project/cgj/cgj/assets/fire-particle-vs.glsl");
-	shader->addShader(GL_GEOMETRY_SHADER, "../../project/cgj/cgj/assets/fire-particle-gs.glsl");
-	shader->addShader(GL_FRAGMENT_SHADER, "../../project/cgj/cgj/assets/fire-particle-fs.glsl");
+	shader->addShader(GL_VERTEX_SHADER, "assets/shaders/fire-particle-vs.glsl");
+	shader->addShader(GL_GEOMETRY_SHADER, "assets/shaders/fire-particle-gs.glsl");
+	shader->addShader(GL_FRAGMENT_SHADER, "assets/shaders/fire-particle-fs.glsl");
 	shader->addUniformBlock("Camera", UBO_BP);
 	shader->addUniform("ModelMatrix");
 	shader->addUniform("NumberOfRows");
@@ -214,9 +206,9 @@ void GLProgram::createFireParticleSystemShader() {
 void GLProgram::createRainParticleSystemShader() {
 	ShaderProgram* shader = new ShaderProgram();
 
-	shader->addShader(GL_VERTEX_SHADER, "../../project/cgj/cgj/assets/rain-particle-vs.glsl");
-	shader->addShader(GL_GEOMETRY_SHADER, "../../project/cgj/cgj/assets/rain-particle-gs.glsl");
-	shader->addShader(GL_FRAGMENT_SHADER, "../../project/cgj/cgj/assets/rain-particle-fs.glsl");
+	shader->addShader(GL_VERTEX_SHADER, "assets/shaders/rain-particle-vs.glsl");
+	shader->addShader(GL_GEOMETRY_SHADER, "assets/shaders/rain-particle-gs.glsl");
+	shader->addShader(GL_FRAGMENT_SHADER, "assets/shaders/rain-particle-fs.glsl");
 	shader->addUniformBlock("Camera", UBO_BP);
 	shader->addUniform("ModelMatrix");
 	shader->addAttribute("inVertex", RainParticleSystem::VERTEX);
@@ -392,12 +384,6 @@ void GLProgram::createSceneGraph() {
 		qtrn(),
 		vec3(1.5f, 1.5f, 1.55f)
 	);
-
-	SceneNode* lake = ground->createNode();
-	lake->setMesh(MeshManager::getInstance()->get("lake"));
-	lake->setShaderProgram(ShaderManager::getInstance()->get("scenegraph"));
-	lake->setColor({ 0.48f, 0.39f, 0.29f }, { 0.48f, 0.39f, 0.29f });
-	lake->setSteps(2);
 
 	createPoplarTree(ground, vec3(-1.7f, 0.2f, 0.0f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
 	createPoplarTree(ground, vec3(-1.2f, 0.2f, 1.2f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
