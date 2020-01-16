@@ -52,17 +52,17 @@ void ShadowMap::update(float elapsed) {
 		switch (var) {
 		case INC:
 			lightIntensity += step * elapsed;
-			if (lightIntensity > 0.30f) var = DEC;
+			if (lightIntensity > 0.40f) var = DEC;
 			break;
 
 		case DEC:
 			lightIntensity -= step * elapsed;
-			if (lightIntensity < 0.10f) var = INC;
+			if (lightIntensity < 0.20f) var = INC;
 			break;
 		}
 
 		lastIntensity = lightIntensity;
 
-		lightPos = vec3(random(-1.32f, -1.28f), random(0.48f, 0.52f), random(-0.62f, -0.58f));
+		lightPos = vec3(random(-1.34f, -1.26f), random(0.46f, 0.54f), random(-0.64f, -0.56f));
 	}
 }
