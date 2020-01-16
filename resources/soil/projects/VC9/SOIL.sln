@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.29306.81
+VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SOIL", "SOIL.vcxproj", "{C32FB2B4-500C-43CD-A099-EECCE079D3F1}"
 EndProject
@@ -26,6 +26,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {55C540A3-46C9-4BEE-B577-56C8AC2115EB}
+		SolutionGuid = {36B7FAEA-288C-4999-A9AB-5CA7B1269D42}
 	EndGlobalSection
 EndGlobal
