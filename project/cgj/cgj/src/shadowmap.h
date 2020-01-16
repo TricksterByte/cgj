@@ -5,8 +5,11 @@
 #include "shadows_fbos.h"
 #include "vectors.h"
 #include "matrices.h"
+#include "i_updatable.h"
 
-class ShadowMap {
+enum Variance { INC, DEC };
+
+class ShadowMap : public IUpdatable {
 private:
 	ShadowsFramebuffers* shadowFbos;
 
@@ -22,7 +25,12 @@ public:
 	const float near;
 	const float far;
 
-	float lightIntensity = 0.4f;
+	float lightIntensity = 0.15f;
+	float lastIntensity = 0.15f;
+	float step = 0.05f;
+	bool on = true;
+	Variance var = INC;
+
 	vec3 lightPos;
 	mat4 shadowMats[6];
 	
@@ -30,6 +38,8 @@ public:
 	ShadowsFramebuffers* getFbos();
 	void calcMatrices();
 	void lightIntensityToggle();
+
+	void update(float elapsed);
 };
 
 #endif

@@ -19,7 +19,6 @@ uniform vec4 ClipPlane;
 
 void main(void)
 {
-	//exNormal = NormalMatrix * inNormal;
 	exNormal = transpose(inverse(mat3(ModelMatrix))) * inNormal;
 	FragPos = vec3(ModelMatrix * vec4(inVertex, 1));
 	ViewPos = vec3(ViewMatrix * ModelMatrix * vec4(inVertex, 1));

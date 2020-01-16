@@ -37,5 +37,32 @@ void ShadowMap::calcMatrices() {
 }
 
 void ShadowMap::lightIntensityToggle() {
-	lightIntensity = (lightIntensity == 0.4f? 0.0f : 0.4f);
+	if (on) {
+		on = false;
+		lightIntensity = 0.f;
+	}
+	else {
+		on = true;
+		lightIntensity = lastIntensity;
+	}
+}
+
+void ShadowMap::update(float elapsed) {
+	if (on) {
+		switch (var) {
+		case INC:
+			lightIntensity += step * elapsed;
+			if (lightIntensity > 0.30f) var = DEC;
+			break;
+
+		case DEC:
+			lightIntensity -= step * elapsed;
+			if (lightIntensity < 0.10f) var = INC;
+			break;
+		}
+
+		lastIntensity = lightIntensity;
+
+		lightPos = vec3(random(-1.32f, -1.28f), random(0.48f, 0.52f), random(-0.62f, -0.58f));
+	}
 }

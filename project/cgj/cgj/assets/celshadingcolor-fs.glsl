@@ -69,9 +69,9 @@ void main(void)
 	float intensity = max(dot(L, N), 0.0);
 
 	vec3 color = ComputeColorToon(intensity);
-	vec3 ambient = 0.6 * color;
+	vec3 ambient = 0.8 * color;
 	vec3 lightColor = vec3(LightIntensity);
-	vec3 diffuse = intensity * lightColor * 2;
+	vec3 diffuse = intensity * lightColor * 1.5;
 
 	outFragColor = vec4((ambient + (1 - shadow) * diffuse) * color, 1);
 }

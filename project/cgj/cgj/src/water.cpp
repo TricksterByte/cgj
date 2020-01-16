@@ -45,12 +45,6 @@ void Water::draw(Camera* cam) {
 			glUniform1i(shaderProgram->uniforms["Reflection"].index, 3);
 		}
 
-		if (shaderProgram->isUniform("Refraction")) {
-			glActiveTexture(GL_TEXTURE4);
-			glBindTexture(GL_TEXTURE_2D, waterFbos->refractionId);
-			glUniform1i(shaderProgram->uniforms["Refraction"].index, 4);
-		}
-
 		if (callback)
 			callback->beforeDraw(this);
 

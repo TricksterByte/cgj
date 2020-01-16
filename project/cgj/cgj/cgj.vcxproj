@@ -22,6 +22,7 @@
     <ClCompile Include="src\camera.cpp" />
     <ClCompile Include="src\demo.cpp" />
     <ClCompile Include="src\fire_particle_system.cpp" />
+    <ClCompile Include="src\glprogram.cpp" />
     <ClCompile Include="src\keybuffer.cpp" />
     <ClCompile Include="src\matrices.cpp" />
     <ClCompile Include="src\matrix_factory.cpp" />
@@ -30,7 +31,6 @@
     <ClCompile Include="src\particle_system.cpp" />
     <ClCompile Include="src\quaternion.cpp" />
     <ClCompile Include="src\rain_particle_system.cpp" />
-    <ClCompile Include="src\sampler.cpp" />
     <ClCompile Include="src\scene_graph.cpp" />
     <ClCompile Include="src\scene_manager.cpp" />
     <ClCompile Include="src\scene_node.cpp" />
@@ -48,8 +48,10 @@
   <ItemGroup>
     <ClInclude Include="src\camera.h" />
     <ClInclude Include="src\fire_particle_system.h" />
+    <ClInclude Include="src\glprogram.h" />
     <ClInclude Include="src\i_manager.h" />
     <ClInclude Include="src\i_scene_node_callback.h" />
+    <ClInclude Include="src\i_updatable.h" />
     <ClInclude Include="src\keybuffer.h" />
     <ClInclude Include="src\math_helpers.h" />
     <ClInclude Include="src\matrices.h" />
@@ -59,7 +61,6 @@
     <ClInclude Include="src\particle_system.h" />
     <ClInclude Include="src\quaternion.h" />
     <ClInclude Include="src\rain_particle_system.h" />
-    <ClInclude Include="src\sampler.h" />
     <ClInclude Include="src\scene_graph.h" />
     <ClInclude Include="src\scene_manager.h" />
     <ClInclude Include="src\scene_node.h" />
@@ -206,14 +207,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\resources\glew\include;$(SolutionDir)..\..\resources\glfw64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\resources\soil\src;$(SolutionDir)..\..\resources\glew\include;$(SolutionDir)..\..\resources\glfw64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\resources\glfw64\lib-vc2019;$(SolutionDir)\..\..\resources\glew\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\..\..\resources\soil\projects\VC9\x64\Debug;$(SolutionDir)\..\..\resources\glfw64\lib-vc2019;$(SolutionDir)\..\..\resources\glew\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SOIL.lib;opengl32.lib;glew32.lib;glfw3dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

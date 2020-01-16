@@ -5,6 +5,7 @@
 #include "math_helpers.h"
 #include "particle.h"
 #include "scene_node.h"
+#include "i_updatable.h"
 
 typedef vec3 Vertex;
 typedef vec3 Color;
@@ -12,7 +13,7 @@ typedef float Size;
 typedef vec4 TexOffset;
 typedef float Blend;
 
-class ParticleSystem : public SceneNode {
+class ParticleSystem : public SceneNode, public IUpdatable {
 	int maxParticles;
 	float timeSinceLast = 0;
 	bool hasTexture;

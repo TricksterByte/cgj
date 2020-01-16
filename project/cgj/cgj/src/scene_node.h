@@ -1,6 +1,6 @@
 #pragma once
-#ifndef __SCENE_NODE__
-#define __SCENE_NODE__
+#ifndef __SCENE_NODE_H__
+#define __SCENE_NODE_H__
 
 #include "matrices.h"
 #include "quaternion.h"

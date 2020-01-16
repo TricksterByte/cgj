@@ -25,10 +25,14 @@ static float radiansToDegrees(float r) {
 
 static float random(float low, float high) {
 	std::random_device rd;
-	std::default_random_engine e(rd());
+	std::mt19937 e(rd());
 	std::uniform_real_distribution<float> dist(low, high);
 
 	return dist(e);
+}
+
+static float smoothstep(float x) {
+	return x * x * (3 - 2 * x);
 }
 
 #endif

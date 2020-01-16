@@ -3,9 +3,10 @@
 #define __WATER_H__
 
 #include "scene_node.h"
+#include "i_updatable.h"
 #include "water_fbos.h"
 
-class Water : public SceneNode {
+class Water : public SceneNode, public IUpdatable {
 private:
 	WaterFramebuffers* waterFbos;
 	float moveFactor = 0.f;
