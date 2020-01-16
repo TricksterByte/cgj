@@ -16,7 +16,8 @@
 #include "scene_graph.h"
 #include "i_scene_node_callback.h"
 
-#include "particle_system.h"
+#include "fire_particle_system.h"
+#include "rain_particle_system.h"
 #include "water_fbos.h"
 #include "water.h"
 
@@ -100,6 +101,10 @@ void createTextures() {
 	Texture2D* dudv = new Texture2D();
 	dudv->load("../../../project/cgj/cgj/assets/waterDUDV.png");
 	TextureManager::getInstance()->add("waterDuDv", (Texture*)dudv);
+
+	ParticleTexture* fireParticle = new ParticleTexture(4, true);
+	fireParticle->load("../../../project/cgj/cgj/assets/fire.png");
+	TextureManager::getInstance()->add("fireParticle", (Texture*) fireParticle);
 }
 
 void createToonShader() {
@@ -209,6 +214,44 @@ void createShadowShader() {
 	ShaderManager::getInstance()->add("shadowmap", program);
 }
 
+void createFireParticleSystemShader() {
+	ShaderProgram* program = new ShaderProgram();
+
+	program->addShader(GL_VERTEX_SHADER, "../../../project/cgj/cgj/assets/fire-particle-vs.glsl");
+	program->addShader(GL_GEOMETRY_SHADER, "../../../project/cgj/cgj/assets/fire-particle-gs.glsl");
+	program->addShader(GL_FRAGMENT_SHADER, "../../../project/cgj/cgj/assets/fire-particle-fs.glsl");
+	program->addUniformBlock("Camera", UBO_BP);
+	program->addUniform("ModelMatrix");
+	program->addUniform("NumberOfRows");
+	program->addUniform("ParticleTexture");
+	program->addAttribute("inVertex", FireParticleSystem::VERTEX);
+	program->addAttribute("inColor", FireParticleSystem::COLOR);
+	program->addAttribute("inSize", FireParticleSystem::SIZE);
+	program->addAttribute("inTexOffsets", FireParticleSystem::TEXOFFSET);
+	program->addAttribute("inBlend", FireParticleSystem::BLEND);
+
+	program->create();
+
+	ShaderManager::getInstance()->add("fireParticles", program);
+}
+
+void createRainParticleSystemShader() {
+	ShaderProgram* program = new ShaderProgram();
+
+	program->addShader(GL_VERTEX_SHADER, "../../../project/cgj/cgj/assets/rain-particle-vs.glsl");
+	program->addShader(GL_GEOMETRY_SHADER, "../../../project/cgj/cgj/assets/rain-particle-gs.glsl");
+	program->addShader(GL_FRAGMENT_SHADER, "../../../project/cgj/cgj/assets/rain-particle-fs.glsl");
+	program->addUniformBlock("Camera", UBO_BP);
+	program->addUniform("ModelMatrix");
+	program->addAttribute("inVertex", RainParticleSystem::VERTEX);
+	program->addAttribute("inColor", RainParticleSystem::COLOR);
+	program->addAttribute("inSize", RainParticleSystem::SIZE);
+
+	program->create();
+
+	ShaderManager::getInstance()->add("rainParticles", program);
+}
+
 // --------------------------------------- SCENE ------------------------------------------
 
 SceneNode* createPoplarTree(SceneNode* node, const vec3& t, const qtrn& r, const vec3& s) {
@@ -306,6 +349,8 @@ SceneNode* createTent(SceneNode* node, const vec3& t, const qtrn& r, const vec3&
 ShadowMap* map;
 ShadowsFramebuffers* fbos;
 Water* water;
+FireParticleSystem* fireParticleSystem;
+RainParticleSystem* rainParticleSystem;
 
 void createSceneGraph() {
 	SceneGraph* graph = new SceneGraph();
@@ -372,11 +417,26 @@ void createSceneGraph() {
 	createFirTree(ground, vec3(-2.3f, 0.2f, 2.0f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
 	createFirTree(ground, vec3(-1.2f, 0.2f, -2.3f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
 	createFirTree(ground, vec3(-1.2f, 0.2f, -1.7f), qtrn(), vec3(0.15f, 0.15f, 0.15f));
-	createTent(ground, vec3(-1.4, 0.2, -0.7), qtrn(degreesToRadians(30.f), AXIS_Y), vec3(0.15, 0.15, 0.15));
+	createTent(ground, vec3(-1.4f, 0.2f, -0.7f), qtrn(degreesToRadians(30.f), AXIS_Y), vec3(0.15f, 0.15f, 0.15f));
 	
-	map = new ShadowMap(1024, 1024, 1080, 720, vec3(-1.3, 0.5, -0.6), 0.f, 100.f);
+	map = new ShadowMap(1024, 1024, 1080, 720, vec3(-1.3f, 0.5f, -0.6f), 0.f, 100.f);
 	map->setFbos(new ShadowsFramebuffers(1024, 1024, 1080, 720));
 	ground->setShadowMap(map);
+
+	TextureInfo* tinfo2 = new TextureInfo(GL_TEXTURE3, 3, "ParticleTexture", TextureManager::getInstance()->get("fireParticle"), nullptr);
+
+	fireParticleSystem = new FireParticleSystem(150, true);
+	fireParticleSystem->setShaderProgram(ShaderManager::getInstance()->get("fireParticles"));
+	fireParticleSystem->addTextureInfo(tinfo2);
+	fireParticleSystem->move(vec3(1, 0, 0), -1.1f);
+	fireParticleSystem->move(vec3(0, 1, 0), 0.28f);
+	fireParticleSystem->move(vec3(0, 0, 1), -0.3f);
+	ground->addNode(fireParticleSystem);
+
+	rainParticleSystem = new RainParticleSystem(1500, false);
+	rainParticleSystem->setShaderProgram(ShaderManager::getInstance()->get("rainParticles"));
+	rainParticleSystem->move(vec3(0, 1, 0), 8.f);
+	root->addNode(rainParticleSystem);
 }
 
 void drawSceneGraph() {
@@ -442,6 +502,7 @@ void drawSceneGraph() {
 		program->unbind();
 
 		nodes[2]->draw(graph->getCamera());
+		nodes[3]->draw(graph->getCamera());
 
 		glDisable(GL_CLIP_DISTANCE0);
 	}
@@ -468,6 +529,7 @@ void drawSceneGraph() {
 	program->unbind();
 
 	nodes[2]->draw(camera);
+	nodes[3]->draw(camera);
 
 	glDisable(GL_CLIP_DISTANCE0);
 }
@@ -570,6 +632,10 @@ void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods)
 	if (glfwGetKey(win, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 		glfwSetWindowShouldClose(win, GLFW_TRUE);
 		window_close_callback(win);
+	}
+	if (key == GLFW_KEY_T && action == GLFW_PRESS) {
+		fireParticleSystem->toggle();
+		rainParticleSystem->toggle();
 	}
 
 	switch (action) {
@@ -735,6 +801,8 @@ GLFWwindow* setup(int major, int minor,
 	createShadowShader();
 	createSkyboxShader();
 	createWaterShader();
+	createFireParticleSystemShader();
+	createRainParticleSystemShader();
 	createSceneGraph();
 	return win;
 }
@@ -776,6 +844,8 @@ void display(GLFWwindow* win, float elapsed_sec)
 
 	offsetX += elapsed_sec * 0.7f;
 	water->update(elapsed_sec);
+	fireParticleSystem->update(elapsed_sec);
+	rainParticleSystem->update(elapsed_sec);
 	setViewProjectionMatrix();
 	drawSceneGraph();
 }

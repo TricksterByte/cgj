@@ -69,9 +69,6 @@
     <ClCompile Include="src\sampler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\texture_manger.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\water_fbos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -82,6 +79,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\shadows_fbos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\texture_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fire_particle_system.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rain_particle_system.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -161,6 +167,12 @@
     <ClInclude Include="src\shadows_fbos.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\fire_particle_system.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rain_particle_system.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\basic-fs.glsl">
@@ -190,15 +202,6 @@
     <None Include="assets\celshadingcolor-fs.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\particle-fs.glsl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\particle-gs.glsl">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\particle-vs.glsl">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="assets\skybox-fs.glsl">
       <Filter>Resource Files</Filter>
     </None>
@@ -218,6 +221,24 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="assets\shadowmap-vs.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fire-particle-fs.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fire-particle-gs.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\fire-particle-vs.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\rain-particle-fs.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\rain-particle-gs.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\rain-particle-vs.glsl">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

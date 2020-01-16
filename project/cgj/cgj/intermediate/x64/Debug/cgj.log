@@ -1,5 +1,1 @@
-﻿  demo.cpp
-C:\Users\pedro\Desktop\cgj-proj4 - Copy\project\cgj\cgj\src\demo.cpp(375,41): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\pedro\Desktop\cgj-proj4 - Copy\project\cgj\cgj\src\demo.cpp(375,103): warning C4305:  'argument': truncation from 'double' to 'float'
-C:\Users\pedro\Desktop\cgj-proj4 - Copy\project\cgj\cgj\src\demo.cpp(377,65): warning C4305:  'argument': truncation from 'double' to 'float'
-  cgj.vcxproj -> C:\Users\pedro\Desktop\cgj-proj4 - Copy\project\cgj\..\..\bin\x64\cgj_d.exe
+﻿

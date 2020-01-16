@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\camera.cpp" />
     <ClCompile Include="src\demo.cpp" />
+    <ClCompile Include="src\fire_particle_system.cpp" />
     <ClCompile Include="src\keybuffer.cpp" />
     <ClCompile Include="src\matrices.cpp" />
     <ClCompile Include="src\matrix_factory.cpp" />
@@ -28,6 +29,7 @@
     <ClCompile Include="src\particle.cpp" />
     <ClCompile Include="src\particle_system.cpp" />
     <ClCompile Include="src\quaternion.cpp" />
+    <ClCompile Include="src\rain_particle_system.cpp" />
     <ClCompile Include="src\sampler.cpp" />
     <ClCompile Include="src\scene_graph.cpp" />
     <ClCompile Include="src\scene_manager.cpp" />
@@ -38,13 +40,14 @@
     <ClCompile Include="src\shadowmap.cpp" />
     <ClCompile Include="src\shadows_fbos.cpp" />
     <ClCompile Include="src\texture.cpp" />
-    <ClCompile Include="src\texture_manger.cpp" />
+    <ClCompile Include="src\texture_manager.cpp" />
     <ClCompile Include="src\vectors.cpp" />
     <ClCompile Include="src\water.cpp" />
     <ClCompile Include="src\water_fbos.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\camera.h" />
+    <ClInclude Include="src\fire_particle_system.h" />
     <ClInclude Include="src\i_manager.h" />
     <ClInclude Include="src\i_scene_node_callback.h" />
     <ClInclude Include="src\keybuffer.h" />
@@ -55,6 +58,7 @@
     <ClInclude Include="src\particle.h" />
     <ClInclude Include="src\particle_system.h" />
     <ClInclude Include="src\quaternion.h" />
+    <ClInclude Include="src\rain_particle_system.h" />
     <ClInclude Include="src\sampler.h" />
     <ClInclude Include="src\scene_graph.h" />
     <ClInclude Include="src\scene_manager.h" />
@@ -78,9 +82,12 @@
     <None Include="assets\celshading2-fs.glsl" />
     <None Include="assets\celshading2-vs.glsl" />
     <None Include="assets\celshadingcolor-fs.glsl" />
-    <None Include="assets\particle-fs.glsl" />
-    <None Include="assets\particle-gs.glsl" />
-    <None Include="assets\particle-vs.glsl" />
+    <None Include="assets\fire-particle-fs.glsl" />
+    <None Include="assets\fire-particle-gs.glsl" />
+    <None Include="assets\fire-particle-vs.glsl" />
+    <None Include="assets\rain-particle-fs.glsl" />
+    <None Include="assets\rain-particle-gs.glsl" />
+    <None Include="assets\rain-particle-vs.glsl" />
     <None Include="assets\shadowmap-fs.glsl" />
     <None Include="assets\shadowmap-gs.glsl" />
     <None Include="assets\shadowmap-vs.glsl" />

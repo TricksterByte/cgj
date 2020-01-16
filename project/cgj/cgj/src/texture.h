@@ -10,6 +10,7 @@ class Texture1D;
 class Texture2D;
 class Texture3D;
 class TextureCubeMap;
+class ParticleTexture;
 struct TextureInfo;
 
 ///////////////////////////////////////////////// Texture
@@ -78,6 +79,20 @@ public:
 	void loadCubeMap(const std::string& prefix, const std::string& suffix);
 	void saveCubeMap(int index, int mip);
 	void renderCube();
+};
+
+///////////////////////////////////////////////// ParticleTexture
+
+class ParticleTexture : Texture {
+	int rows = 1;
+	bool additive;
+public:
+	ParticleTexture(int r, bool add);
+	void bind();
+	void unbind();
+	void load(const std::string& filename);
+	int getRows();
+	bool getAdditive();
 };
 
 #endif

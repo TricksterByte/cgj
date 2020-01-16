@@ -2,32 +2,51 @@
 #ifndef __PARTICLE_SYSTEM_H__
 #define __PARTICLE_SYSTEM_H__
 
-#include "mesh.h"
+#include "math_helpers.h"
 #include "particle.h"
 #include "scene_node.h"
 
+typedef vec3 Vertex;
+typedef vec3 Color;
+typedef float Size;
+typedef vec4 TexOffset;
+typedef float Blend;
+
 class ParticleSystem : public SceneNode {
-public:
 	int maxParticles;
 	float timeSinceLast = 0;
-
-	ParticleSystem(int max);
-	~ParticleSystem();
-
-	void update(float dt);
-	Particle* createParticle();
-	void draw(Camera* cam);
+	bool hasTexture;
 
 	std::vector<Particle*> particles;
 
-private:
 	GLuint VaoId;
+	GLuint VboVertices;
+	GLuint VboColors;
+	GLuint VboSizes;
+	GLuint VboTexOffsets;
+	GLuint VboBlends;
 	std::vector<Vertex> Vertices;
+	std::vector<Color> Colors;
+	std::vector<Size> Sizes;
+	std::vector<TexOffset> TexOffsets;
+	std::vector<Blend> Blends;
 
+public:
+	static const GLuint VERTEX = 0;
+	static const GLuint COLOR = 1;
+	static const GLuint SIZE = 2;
+	static const GLuint TEXOFFSET = 3;
+	static const GLuint BLEND = 4;
+
+	ParticleSystem(int max, bool hasTex);
+	~ParticleSystem();
+
+	virtual void update(float dt);
+	virtual void draw(Camera* cam);
+private:
 	void createBufferObjects();
 	void destroyBufferObjects();
-
-	GLuint VboVertices;
+	virtual Particle* createParticle();
 };
 
 #endif

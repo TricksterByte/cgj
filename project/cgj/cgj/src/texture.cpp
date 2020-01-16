@@ -325,3 +325,51 @@ void TextureCubeMap::renderCube() {
 	}
 }
 */
+
+///////////////////////////////////////////////// ParticleTexture
+
+ParticleTexture::ParticleTexture(int r, bool add) : rows(r), additive(add) {}
+
+void ParticleTexture::bind() {
+	glBindTexture(GL_TEXTURE_2D, id);
+}
+
+void ParticleTexture::unbind() {
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void ParticleTexture::load(const std::string& filename) {
+	int width, height, channels;
+	std::cout << "Loading image file " << filename << "... ";
+	unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, &channels, SOIL_LOAD_RGBA);
+	if (image == nullptr) {
+		std::cout << "error." << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	else {
+		std::cout << "ok." << std::endl;
+	}
+
+	glGenTextures(1, &id);
+	glBindTexture(GL_TEXTURE_2D, id);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+
+	glGenerateMipmap(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	SOIL_free_image_data(image);
+}
+
+int ParticleTexture::getRows() {
+	return rows;
+}
+
+bool ParticleTexture::getAdditive() {
+	return additive;
+}

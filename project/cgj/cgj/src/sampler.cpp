@@ -53,7 +53,7 @@ void NearestMipmapLinearSampler::create() {
 void LinearAnisotropicSampler::create() {
 	glSamplerParameteri(samplerId, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glSamplerParameteri(samplerId, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glSamplerParameteri(samplerId, GL_TEXTURE_MAX_ANISOTROPY_EXT, 4.0f);
+	glSamplerParameteri(samplerId, GL_TEXTURE_MAX_ANISOTROPY_EXT, 4);
 }
 
 ///////////////////////////////////////////////// MaxAnisotropicSampler
