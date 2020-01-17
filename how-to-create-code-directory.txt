@@ -4,5 +4,12 @@ How to Create code/source directory:
 
 2. Copy the directories in cgj-proj4 to code/source folder (bin, project, and resources).
 
-3. Remove .vs directory from project, remove the backup of the assets directory,
+3. Remove .vs directory from project, remove the backup of the assets directory (if still exists),
 and the content of the intermediate directory.
+
+4. Remove the unnecessary content from the resources directory if needed (see what was
+removed in the release branch for details).
+
+How to Create code/release directory:
+
+1. Copy cgj.exe, the .dlls, and the assets folder to code/release.
