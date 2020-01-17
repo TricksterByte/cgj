@@ -80,6 +80,16 @@ void setupErrorCallback()
 	glDebugMessageCallback(error, 0);
 	glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 	glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, 0, GL_TRUE);
+
+	// suppress "VIDEO memory as the source for buffer memory operations" notifications in the case of using NVIDIA graphics cards
+	// suppress "shader being recompiled" notifications in the case of using NVIDIA graphics cards
+	std::string vendor = std::string(reinterpret_cast<const char*>(glGetString(GL_VENDOR)));
+	if (vendor == "NVIDIA Corporation") {
+		const GLuint ids_notification[1] = { 131185 };
+		const GLuint ids_medium[1] = { 131218 };
+		glDebugMessageControl(GL_DEBUG_SOURCE_API, GL_DEBUG_TYPE_OTHER_ARB, GL_DONT_CARE, 1, ids_notification, GL_FALSE);
+		glDebugMessageControl(GL_DEBUG_SOURCE_API, GL_DEBUG_TYPE_PERFORMANCE, GL_DONT_CARE, 1, ids_medium, GL_FALSE);
+	}
 	// params: source, type, severity, count, ids, enabled
 }
 
