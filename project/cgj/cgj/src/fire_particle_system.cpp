@@ -6,10 +6,6 @@ FireParticleSystem::FireParticleSystem(int max, bool hasTexture) : ParticleSyste
 
 FireParticleSystem::~FireParticleSystem() {}
 
-//void FireParticleSystem::toggle() {
-//	active = !active;
-//}
-
 Particle* FireParticleSystem::createParticle() {
 	float x = random(-.05f, .05f);
 	float y = 0.002f;

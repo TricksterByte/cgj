@@ -14,9 +14,11 @@ typedef vec4 TexOffset;
 typedef float Blend;
 
 class ParticleSystem : public SceneNode, public IUpdatable {
+protected:
 	int maxParticles;
 	float timeSinceLast = 0;
 	bool hasTexture;
+	bool active = true;
 
 	std::vector<Particle*> particles;
 
@@ -31,8 +33,6 @@ class ParticleSystem : public SceneNode, public IUpdatable {
 	std::vector<Size> Sizes;
 	std::vector<TexOffset> TexOffsets;
 	std::vector<Blend> Blends;
-protected:
-	bool active = true;
 public:
 	static const GLuint VERTEX = 0;
 	static const GLuint COLOR = 1;

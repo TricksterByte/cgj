@@ -6,10 +6,6 @@ RainParticleSystem::RainParticleSystem(int max, bool hasTexture) : ParticleSyste
 
 RainParticleSystem::~RainParticleSystem() {}
 
-//void RainParticleSystem::toggle() {
-//	active = !active;
-//}
-
 Particle* RainParticleSystem::createParticle() {
 	float x = random(-8.f, 8.f);
 	float y = 0.0f;
@@ -27,8 +23,8 @@ Particle* RainParticleSystem::createParticle() {
 	vec3 color = { r, g, b };
 
 	float ge = 10.0f;
-	float ttl = random(0.2f, 0.35f);
-	float size = ((float)rand()) / ((float)RAND_MAX * 18);
+	float ttl = random(0.27f, 0.32f);
+	float size = random(0.3f, 1.8f);
 
 	return new Particle(position, velocity, color, ge, ttl, size);
 }

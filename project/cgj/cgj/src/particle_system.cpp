@@ -89,7 +89,7 @@ void ParticleSystem::destroyBufferObjects() {
 	glBindVertexArray(0);
 }
 
-void ParticleSystem::update(float dt) { //fix this (initial burst)
+void ParticleSystem::update(float dt) {
 	int created = 0;
 	if (active) {
 		while (particles.size() != maxParticles) {

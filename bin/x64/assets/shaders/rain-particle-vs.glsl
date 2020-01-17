@@ -1,22 +1,15 @@
 #version 330
 
-uniform Camera {
-	mat4 ViewMatrix;
-	mat4 ProjectionMatrix;
-};
-
-uniform mat4 ModelMatrix;
-
 in vec3 inVertex;
 in vec3 inColor;
 in float inSize;
 
 out vec3 gColor;
+out float gSize;
 
 void main(void)
 {
 	gColor = inColor;
-	
-	mat4 ModelView = ViewMatrix * ModelMatrix;
-	gl_Position = ModelView * vec4(inVertex, 1);
+	gSize = inSize;
+	gl_Position = vec4(inVertex, 1);
 }
