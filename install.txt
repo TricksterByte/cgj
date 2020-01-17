@@ -1,0 +1,14 @@
+How to run the application:
+
+1. Install the x64 version of Microsoft Visual C++ Redistributable for Visual Studio 2015, 2017, 2019 
+(available at https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads).
+This will provide the needed DLL for the application to run (MSVCP140.dll, VCRUNTIME140_1.dll,
+VCRUNTIME140.dll, etc.).
+
+2. Make sure the following files/directories are in the directory where you intend to run the application:
+	- assets directory (with contents)
+	- cgj.exe executable file
+	- glew32.dll file
+	- glfw3.dll file
+
+2. Run the application by double-clicking the cgj.exe executable file.

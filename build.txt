@@ -1,0 +1,11 @@
+How to create the release directory:
+
+1. Open the solution file (cgj.sln) in Visual Studio.
+
+2. Change configuration to Release and the Platform fo x64.
+
+3. Build the solution (Build > Build Solution, or Ctrl+Shift+B).
+
+4. Go to the bin directory, and copy the assets directory, the cgj.exe executable file,
+the glew32.dll file and the glfw3.dll file to the release directory.
+  
