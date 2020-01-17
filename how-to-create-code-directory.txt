@@ -6,5 +6,3 @@ How to Create code/source directory:
 
 3. Remove .vs directory from project, remove the backup of the assets directory,
 and the content of the intermediate directory.
-
-4. Remove .vs directory of SOIL project.
